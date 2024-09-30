@@ -27,13 +27,20 @@ impl SessionList {
     }
 
     pub fn attach_selected(&mut self) {
-        let session = self.sessions.get(self.selected_session_index).unwrap();
+        let session = self
+            .filtered_sessions
+            .get(self.selected_session_index)
+            .unwrap();
 
         switch_session_with_focus(&session.name, Some(self.selected_tab_index + 1), None);
     }
 
     pub fn delete_selected(&mut self) {
-        let session = self.sessions.get(self.selected_session_index).unwrap();
+        let session = self
+            .filtered_sessions
+            .get(self.selected_session_index)
+            .unwrap();
+
         kill_sessions(&[&session.name]);
     }
 
