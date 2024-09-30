@@ -125,6 +125,8 @@ impl SessionList {
             tab_query = parts[1];
 
             self.is_expanded = true;
+        } else {
+            self.is_expanded = false;
         }
 
         let session_names = self
