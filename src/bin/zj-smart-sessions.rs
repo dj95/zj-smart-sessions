@@ -64,6 +64,9 @@ impl ZellijPlugin for State {
                     self.session_list.attach_selected();
                     close_self();
                 }
+                Key::Delete => {
+                    self.session_list.delete_selected();
+                }
                 Key::Backspace => {
                     if self.search_query.is_empty() {
                         return false;
