@@ -32,7 +32,11 @@ impl SessionList {
             .get(self.selected_session_index)
             .unwrap();
 
-        switch_session_with_focus(&session.name, Some(self.selected_tab_index + 1), None);
+        let tab = self.filtered_tabs.get(self.selected_tab_index).unwrap();
+
+        tracing::debug!("session {} tab {}", session.name, tab.name);
+
+        switch_session_with_focus(&session.name, Some(tab.position), None);
     }
 
     pub fn delete_selected(&mut self) {
@@ -88,6 +92,8 @@ impl SessionList {
             .into_iter()
             .map(|tn| session.tabs.iter().find(|t| t.name == tn).unwrap().clone())
             .collect();
+
+        self.selected_tab_index = 0;
     }
 
     pub fn filter(&mut self, search_query: &str) {
