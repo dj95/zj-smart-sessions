@@ -155,11 +155,15 @@ impl SessionList {
 
         let tab = self.filtered_tabs.get(self.selected_tab_index).unwrap();
         tracing::debug!("selected tab: {}", tab.name);
-        let panes = session.panes.panes.get(&tab.position).unwrap();
-        // .iter()
-        // .filter(|p| p.is_selectable)
-        // .cloned()
-        // .collect::<Vec<PaneInfo>>();
+        let panes = session
+            .panes
+            .panes
+            .get(&tab.position)
+            .unwrap()
+            .iter()
+            .filter(|p| p.is_selectable)
+            .cloned()
+            .collect::<Vec<PaneInfo>>();
 
         tracing::debug!("panes: {:?}", panes.len());
         if search_query.is_empty() {
