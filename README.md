@@ -24,7 +24,20 @@
 > [!IMPORTANT]
 > This is an early development version and does not have all features implemented. With future APIs, there will be the last used session at the top. Also one goal is to navigate to the last focused tab & pane, when attaching to a session.
 
-### 🚀 Installation
+## 🚀 Usage
+
+When zj-smart-sessions is installed and configured with the keybindings, simply invoke the keybinding to start the plugin.
+
+It will pop up in a floating window. On first start, it will ask for permissions to fetch certain events and control zellij.
+After granting permissions, you can navigate with the arrow keys between the sessions. Right arrow key will expand the session or tab; left arrow will fold it again.
+
+The search acts with a fuzzy search and is implemented in a way, that speeds up finding the correct tab in the correct session.
+Simply start typing to search the session first. If the correct sessions is selected, type a ' '(space) to start fuzzy finding the tab. 
+When you type a ' '*(space)* again, you can also search for panes in the selected tab.
+
+When pressing the enter key, your session will be switched to the selected destination. The delete key will kill the selected session.
+
+## 📦 Installation
 
 Download the latest binary in the GitHub releases. Place it somewhere, zellij is able to access it. Then the
 plugin can be included by referencing it either via [plugin aliases](https://zellij.dev/documentation/plugin-aliases) or directly in the keybindings section of the *config.kdl*.
