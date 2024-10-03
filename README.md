@@ -26,7 +26,58 @@
 
 ### 🚀 Installation
 
-***TBW***
+Download the latest binary in the GitHub releases. Place it somewhere, zellij is able to access it. Then the
+plugin can be included by referencing it either via [plugin aliases](https://zellij.dev/documentation/plugin-aliases) or directly in the keybindings section of the *config.kdl*.
+
+You could also refer to the plugin guide from zellij, after downloading the binary: [https://zellij.dev/documentation/plugin-loading](https://zellij.dev/documentation/plugin-loading)
+
+Here's an example for creating the keybinding, that override the default session manager, with help of a plugin alias.
+
+```javascript
+plugins {
+  zj-smart-sessions location="file:/abolute/path/to/zj-smart-sessions.wasm"
+}
+keybinds {
+    session {
+        bind "w" {
+            LaunchOrFocusPlugin "zj-smart-sessions" {
+                floating true
+            };
+            SwitchToMode "Normal"
+        }
+    }
+}
+```
+
+## ❄️ Installation with nix flake
+
+Add this repository to your inputs and then with the following overlay to your packages.
+Then you are able to install and refer to it with `pkgs.zj-smart-sessions`. When templating the
+config file, you can use `${pkgs.zj-smart-sessions}/bin/zj-smart-sessions.wasm` as the path.
+
+```nix
+inputs = {
+# ...
+
+zj-smart-sessions = {
+  url = "github:dj95/zj-smart-sessions";
+};
+};
+
+
+# define the outputs of this flake - especially the home configurations
+outputs = { self, nixpkgs, zj-smart-sessions, ... }@inputs:
+let
+inherit (inputs.nixpkgs.lib) attrValues;
+
+overlays = with inputs; [
+  # ...
+  (final: prev: {
+    zj-smart-sessions = zj-smart-sessions.packages.${prev.system}.default;
+  })
+];
+```
+
 
 ## 🤝 Contributing
 
