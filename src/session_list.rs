@@ -48,6 +48,12 @@ impl SessionList {
             pane.title
         );
 
+        if session.is_current_session {
+            switch_tab_to(tab.position as u32 + 1u32);
+
+            return;
+        }
+
         switch_session_with_focus(&session.name, Some(tab.position), Some((pane.id, false)));
     }
 
