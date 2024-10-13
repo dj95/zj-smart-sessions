@@ -59,15 +59,15 @@ impl ZellijPlugin for State {
                 self.session_list.update_sessions(info);
                 should_render = true;
             }
-            Event::Key(key) => match key {
-                Key::Char('\n') => {
+            Event::Key(key) => match key.bare_key {
+                BareKey::Enter => {
                     self.session_list.attach_selected();
                     close_self();
                 }
-                Key::Delete => {
+                BareKey::Delete => {
                     self.session_list.delete_selected();
                 }
-                Key::Backspace => {
+                BareKey::Backspace => {
                     if self.search_query.is_empty() {
                         return false;
                     }
@@ -80,26 +80,26 @@ impl ZellijPlugin for State {
 
                     should_render = true;
                 }
-                Key::Down => {
+                BareKey::Down => {
                     self.session_list.select_next();
                     should_render = true
                 }
-                Key::Up => {
+                BareKey::Up => {
                     self.session_list.select_prev();
                     should_render = true;
                 }
-                Key::Left => {
+                BareKey::Left => {
                     self.session_list.shrink();
                     should_render = true;
                 }
-                Key::Right => {
+                BareKey::Right => {
                     self.session_list.expand();
                     should_render = true;
                 }
-                Key::Esc => {
+                BareKey::Esc => {
                     close_self();
                 }
-                Key::Char(' ') => {
+                BareKey::Char(' ') => {
                     self.search_query = self.search_query.clone() + " ";
                     should_render = true
                 }
