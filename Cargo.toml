@@ -16,7 +16,10 @@ bench = []
 tracing = []
 
 [dependencies]
-zellij-tile = "0.40.1"
+zellij-tile = "0.41.0"
 rust-fuzzy-search = "0.1.1"
 tracing-subscriber = "0.3.18"
 tracing = "0.1.40"
+
+[patch.crates-io]
+zellij-tile = { git = "https://github.com/zellij-org/zellij", package = "zellij-tile" }
