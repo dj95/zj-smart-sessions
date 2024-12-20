@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     crane = {
-      url = "github:ipetkov/crane";
+      url = "github:ipetkov/crane/af1556ecda8bcf305820f68ec2f9d77b41d9cc80";
     };
 
     flake-utils.url = "github:numtide/flake-utils";
@@ -38,7 +38,7 @@
         zj-smart-sessions = craneLib.buildPackage {
           src = craneLib.cleanCargoSource (craneLib.path ./.);
 
-          cargoExtraArgs = "--target wasm32-wasip1";
+          cargoExtraArgs = "--target wasm32-wasip1 --bin zj-smart-sessions";
 
           # Tests currently need to be run via `cargo wasi` which
           # isn't packaged in nixpkgs yet...
