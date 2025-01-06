@@ -3636,7 +3636,7 @@ dependencies = [
 
 [[package]]
 name = "zj-smart-sessions"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
  "fuzzy-matcher",
  "rust-fuzzy-search",
