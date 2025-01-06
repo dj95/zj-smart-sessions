@@ -235,7 +235,7 @@ impl NewSessionList {
             return vec![];
         }
 
-        if self.filtered_list.len() < height {
+        if self.filtered_list.len() <= height {
             return self.filtered_list.clone();
         }
 
