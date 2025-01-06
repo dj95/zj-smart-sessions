@@ -78,11 +78,16 @@ pub struct NewSessionList {
     search_query: String,
     matcher: SkimMatcherV2,
     max_items: Option<usize>,
+    base_path: Option<String>,
 }
 
 impl NewSessionList {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(base_path: Option<String>) -> Self {
+        tracing::debug!("base_path {:?}", base_path);
+        Self {
+            base_path,
+            ..Default::default()
+        }
     }
 
     pub fn load_cache(&mut self) {
@@ -128,7 +133,12 @@ impl NewSessionList {
 
         let name = item.split("/").last().unwrap().replace(".", "_");
 
-        switch_session_with_cwd(Some(&name), Some(item.into()));
+        let cwd = match self.base_path.clone() {
+            Some(base_path) => format!("{base_path}/{item}"),
+            None => item.to_owned(),
+        };
+
+        switch_session_with_cwd(Some(&name), Some(cwd.into()));
     }
 
     pub fn delete_selected(&mut self) {
@@ -252,20 +262,20 @@ impl NewSessionList {
 
             tracing::debug!("name {}", name);
 
-            let mut item = NestedListItem::new(&name)
-                .color_range(0, 0..name.len())
+            let mut item = NestedListItem::new(&match_name)
+                .color_range(0, 0..match_name.len())
                 .color_indices(1, indice);
 
             if !self.session_list.is_empty() {
                 if let Some(session) = self.session_list.iter().find(|s| s.name == name.clone()) {
                     item = NestedListItem::new(format!(
                         "{} ({} tabs, {} panes) [{} connected users]",
-                        &session.name,
+                        &match_name,
                         session.tabs.len(),
                         session.panes.panes.len(),
                         session.connected_clients,
                     ))
-                    .color_range(0, 0..session.name.len())
+                    .color_range(0, 0..match_name.len())
                     .color_range(1, session.name.len() + 2..session.name.len() + 3)
                     .color_range(2, session.name.len() + 10..session.name.len() + 11)
                     .color_range(0, session.name.len() + 20..session.name.len() + 21);

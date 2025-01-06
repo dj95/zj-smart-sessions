@@ -68,6 +68,8 @@ keybinds {
             LaunchOrFocusPlugin "zj-smart-sessions" {
                 floating true
                 find_command "/Users/username/script/for/returning/directories.script"
+                base_path "/User/username/Developer" // path prefix required for relative paths from
+                                                     // the script output
             };
             SwitchToMode "Normal"
         }
@@ -77,6 +79,10 @@ keybinds {
 
 An example for such a script for the `find_command` can be found at [./find_command](./find_command). It will find
 all `.git` directories with *fd* and removes the `.git/` suffix from the path in `~/Developer`.
+
+As an example, if your directories are like `/home/user/proj/rust/zellij` and your `find_command` returns just
+`rust/zellij` for better readability, you **must** configure the `base_path` as `/home/user/proj`. Otherwise
+zj-smart-sessions will start the session at the wrong CWD!
 
 ## ❄️ Installation with nix flake
 

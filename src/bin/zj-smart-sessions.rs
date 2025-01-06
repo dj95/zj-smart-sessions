@@ -57,7 +57,7 @@ impl ZellijPlugin for State {
         self.hidden = false;
         self.search_query = "".to_owned();
         self.session_list = SessionList::new();
-        self.new_session_list = NewSessionList::new();
+        self.new_session_list = NewSessionList::new(config.get("base_path").map(|s| s.to_owned()));
         self.new_session_list.load_cache();
         self.find_command = config.get("find_command").map(|i| i.to_owned());
     }
