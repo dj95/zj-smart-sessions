@@ -9,6 +9,7 @@ build:
 # Build and run the plugin
 run: build
     zellij plugin \
+        --configuration "find_command=$PWD/find_command" \
         --skip-plugin-cache \
         --floating \
         -- file:./target/wasm32-wasip1/debug/zj-smart-sessions.wasm

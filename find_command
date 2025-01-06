@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+pushd ~/Developer > /dev/null
+fd -t d -u -I \
+    -E node_modules \
+    -E vendor \
+    --no-ignore-vcs '^.git$' | xargs -I{} echo "{}" | sed -re 's|.git/||g'

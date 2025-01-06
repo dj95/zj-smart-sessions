@@ -17,6 +17,11 @@
   The goal of this project is to speed up my workflow with zellij sessions. It implements fuzzy finding,
   that matches on a combination of session and tab name to directly find the corresponding tab in a
   session.
+
+  In addition to listing existing session, zj-smart-session offers a way to create new ones based on directories.
+  For this feature, a command/script that returns a list of all possible directories must be configured. It then
+  executes (and caches) the command and provides a fuzzy search. Sessions are created based on the last path
+  name. If a session with this name exists, the existing session will be attached.
 </p>
 
 ![screenshot displaying the session manager](./assets/demo.png)
@@ -52,15 +57,26 @@ plugins {
 }
 keybinds {
     session {
-        bind "w" {
+        bind "w" { // "normal" session manager
             LaunchOrFocusPlugin "zj-smart-sessions" {
                 floating true
+            };
+            SwitchToMode "Normal"
+        }
+        bind "W" { // execute directories.script and offer a fuzzy search over the directories
+                   // to attach or create new sessions based on the directory name
+            LaunchOrFocusPlugin "zj-smart-sessions" {
+                floating true
+                find_command "/Users/username/script/for/returning/directories.script"
             };
             SwitchToMode "Normal"
         }
     }
 }
 ```
+
+An example for such a script for the `find_command` can be found at [./find_command](./find_command). It will find
+all `.git` directories with *fd* and removes the `.git/` suffix from the path in `~/Developer`.
 
 ## ❄️ Installation with nix flake
 
