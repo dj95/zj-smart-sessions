@@ -63,7 +63,7 @@ impl SessionList {
             .get(self.selected_session_index)
             .unwrap();
 
-        kill_sessions(&[&session.name]);
+        let _ = kill_sessions(&[&session.name]);
     }
 
     pub fn expand(&mut self) {

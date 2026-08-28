@@ -155,7 +155,7 @@ impl NewSessionList {
         tracing::debug!("delete {}", name);
 
         if self.session_list.iter().any(|s| s.name == name) {
-            kill_sessions(&[&name]);
+            let _ = kill_sessions(&[&name]);
         }
     }
 
