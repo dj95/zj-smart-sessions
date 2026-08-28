@@ -92,9 +92,11 @@ impl ZellijPlugin for State {
                 self.new_session_list.save_cache();
                 should_render = true;
             }
-            Event::SessionUpdate(info, _foo) => {
-                self.session_list.update_sessions(info.clone());
-                self.new_session_list.update_sessions(info);
+            Event::SessionUpdate(_info, _foo) => {
+                if let Ok(session_info) = get_session_list() {
+                    self.session_list.update_sessions(session_info.live_sessions.clone());
+                    self.new_session_list.update_sessions(session_info.live_sessions);
+                }
                 should_render = true;
             }
             Event::Key(key) => match key.bare_key {
