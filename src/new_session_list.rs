@@ -270,7 +270,7 @@ impl NewSessionList {
                 if let Some(session) = self.session_list.iter().find(|s| s.name == name.clone()) {
                     item = NestedListItem::new(format!(
                         "{} ({} tabs, {} panes) [{} connected users]",
-                        &match_name,
+                        match_name,
                         session.tabs.len(),
                         session.panes.panes.len(),
                         session.connected_clients,

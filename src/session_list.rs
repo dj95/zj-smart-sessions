@@ -337,7 +337,7 @@ impl SessionList {
         for (index, session) in self.filtered_sessions.clone().into_iter().enumerate() {
             let mut item = NestedListItem::new(format!(
                 "{} ({} tabs, {} panes) [{} connected users]",
-                &session.name,
+                session.name,
                 session.tabs.len(),
                 session.panes.panes.len(),
                 session.connected_clients,
@@ -357,7 +357,7 @@ impl SessionList {
                 for (tab_index, tab) in self.filtered_tabs.clone().into_iter().enumerate() {
                     let mut tab_item = NestedListItem::new(format!(
                         "{} ({} panes)",
-                        &tab.name,
+                        tab.name,
                         session
                             .panes
                             .panes
